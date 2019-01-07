@@ -5,10 +5,7 @@ socket.on('connect',function () {
 //socket.emit('createEmail',{
 //  to:'andrew@example.com',
 //  text: 'hey this is praveen'
-socket.emit('createMessage',{
-  from:'kosapsi',
-  text:'aiooo'
-});
+
 
 });
   socket.on('disconnect', function ()  {
