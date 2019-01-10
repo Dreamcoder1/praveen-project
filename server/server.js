@@ -36,13 +36,21 @@ callback();
 
   //server side operation
   socket.on('createMessage', (message, call) => {
-    console.log('create message', message);
-    io.emit('newMessage',generateMessage(message.from, message.text));
+    var user = users.getUser(socket.id) ;
+    if (user && isRealString(message.text)) {
+      io.to(user.room).emit('newMessage',generateMessage(user.name, message.text));
+    }
+    //console.log('create message', message);
+
     call('this is from the server');
 });
 socket.on('createLocationMessage', (coords) => {
-  io.emit('newLocationMessage',generateLocationMessage('admin',coords.latitude,coords.longitude));
-})
+  var user = users.getUser(socket.id);
+  if(user) {
+    io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,coords.latitude,coords.longitude));
+  }
+
+});
 
   socket.on('disconnect',() => {
     //console.log('user was disconnected');

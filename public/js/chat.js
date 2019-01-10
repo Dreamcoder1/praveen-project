@@ -48,7 +48,7 @@ socket.on('updateUserList', function (users) {
     var html = Mustache.render(template, {
       text:message.text,
       from:message.from,
-      createdAt:formattedTime
+    createdAt:formattedTime
     });
     jQuery('#messages').append(html);
     scrollToBottom();
@@ -71,8 +71,9 @@ socket.on('newLocationMessage', function (message)  {
 jQuery('#message-form').on('submit', function (e)  {
   e.preventDefault();
   var messageTextBox = jQuery('[name=message]');
+  //change the currect user who send the message
   socket.emit('createMessage', {
-    from:'user',
+    //from:'user',
     text: messageTextBox.val()
   }, function () {
      messageTextBox.val ('')
